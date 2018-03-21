@@ -39,6 +39,7 @@ function spoilFormGet(elem) {
  newelem = document.createElement('textarea');
  newelem.name = 'chrome_dont_add_custom_search_engines_srsly';
  newelem.disabled = true;
+ newelem.setAttribute('disabled',true);
  newelem.style.display='none';
  elem.appendChild(newelem);
 
