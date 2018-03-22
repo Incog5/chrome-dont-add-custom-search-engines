@@ -23,6 +23,8 @@ Thanks to the following answers:
  - [Chrome Extension: browserAction.onClicked.addListener() not being called](http://stackoverflow.com/a/12707929)
  - [Change the Chrome extension icon](http://stackoverflow.com/a/16924274)
  - [How to add google chrome omnibox-search support for your site?](http://stackoverflow.com/a/32687089) (don't do this!) :-)
+ - [Adding `!important` style](https://stackoverflow.com/a/1577204/2877364) by 
+   [Premasagar](https://stackoverflow.com/users/165716/premasagar)
 
 ## Contributors
 

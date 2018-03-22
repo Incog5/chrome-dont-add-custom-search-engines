@@ -1,7 +1,7 @@
 
 // Add an extra child input to any form that only has one
 function spoilFormGet(elem) {
- // console.info({Found: elem});
+ console.info({Found: elem});
 
  // Bail early if it's already one Chrome won't autodetect
  if( (!/^http/i.test(elem.getAttribute('action'))) &&
@@ -33,15 +33,18 @@ function spoilFormGet(elem) {
  if(elem.querySelector(':scope input[type="file" i]')) return;
  if(elem.querySelector(':scope textarea')) return;
 
- // Add a <textarea> - unlike <input>, it doesn't block implicit submission
+ // Add a radio button per @ap -
+ // unlike <input>, it doesn't block implicit submission
  // per https://www.tjvantoll.com/2013/01/01/enter-should-submit-forms-stop-messing-with-that/
  var newelem;
- newelem = document.createElement('textarea');
+ newelem = document.createElement('input');
+ newelem.type = 'radio';
  newelem.name = 'chrome_dont_add_custom_search_engines_srsly';
- newelem.style.display='none';
+ newelem.setAttribute('tabindex', '-1');
+ newelem.setAttribute('style', 'display: none !important')
  elem.appendChild(newelem);
 
- // console.info({Spoiled: elem});
+ console.info({Spoiled: elem});
 } //spoilFormGet
 
 function main() {
@@ -69,10 +72,6 @@ function main() {
  document.querySelectorAll('form').forEach(spoilFormGet);
 
 } //main
-
-//##console.info({before: document.documentElement.outerHTML});
-//##main(); // Try it early (we are running at document_start)
-//##console.info({after: document.documentElement.outerHTML});
 
 document.addEventListener('DOMContentLoaded', main);
 
