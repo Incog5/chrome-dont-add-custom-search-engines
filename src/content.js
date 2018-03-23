@@ -1,7 +1,7 @@
 
 // Add an extra child input to any form that only has one
 function spoilFormGet(elem) {
- // console.info({Found: elem});
+  console.info({Found: elem});
 
  if(elem.querySelectorAll(':scope input:-webkit-any([type="text" i],[type="search" i])').length === 1) return;
 
@@ -15,7 +15,7 @@ function spoilFormGet(elem) {
  newelem.style.display='none';
  elem.appendChild(newelem);
 
- // console.info({Spoiled: elem});
+ console.info({Spoiled: elem});
 } //spoilFormGet
 
 function main() {
@@ -41,10 +41,6 @@ function main() {
  document.querySelectorAll('form:-webkit-any([method="get" i],:not([method])):-webkit-any([action^="http://" i],[action^="https://" i])').forEach(spoilFormGet);
 
 } //main
-
-//##console.info({before: document.documentElement.outerHTML});
-//##main(); // Try it early (we are running at document_start)
-//##console.info({after: document.documentElement.outerHTML});
 
 document.addEventListener('DOMContentLoaded', main);
 
