@@ -1,10 +1,12 @@
 
 // Add an extra child input to any form that only has one
 function spoilFormGet(elem) {
-  console.info({Found: elem});
+ console.info({Found: elem});
 
- if(elem.querySelectorAll(':scope input:-webkit-any([type="text" i],[type="search" i])').length === 1) return;
+ // Autodetection requires exactly one input of type text or search
+ if(elem.querySelectorAll(':scope input:-webkit-any([type="text" i],[type="search" i])').length !== 1) return;
 
+ // Autodetection also requires no password, file, or textarea elements
  if(elem.querySelector(':scope :-webkit-any(input[type="password" i],input[type="file" i],textarea)')) return;
 
  // Add a <textarea> - unlike <input>, it doesn't block implicit submission
@@ -38,7 +40,9 @@ function main() {
  );
 
  // Chrome autodetection, https://www.chromium.org/tab-to-search #2
- document.querySelectorAll('form:-webkit-any([method="get" i],:not([method])):-webkit-any([action^="http://" i],[action^="https://" i])').forEach(spoilFormGet);
+ // Note: for the sake of efficiency, assumes that we're on Web pages,
+ // i.e., that action="/..." indicates http or https.
+ document.querySelectorAll('form:-webkit-any([method="get" i],:not([method])):-webkit-any([action^="http" i],[action^="/"])').forEach(spoilFormGet);
 
 } //main
 
