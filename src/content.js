@@ -40,9 +40,11 @@ function main() {
  );
 
  // Chrome autodetection, https://www.chromium.org/tab-to-search #2
- // Note: for the sake of efficiency, assumes that we're on Web pages,
- // i.e., that action="/..." indicates http or https.
- document.querySelectorAll('form:-webkit-any([method="get" i],:not([method])):-webkit-any([action^="http" i],[action^="/"])').forEach(spoilFormGet);
+ if(!/\/.+\//.test(location.pathname)) {
+  // Note: for the sake of efficiency, assumes that we're on Web pages,
+  // i.e., that action="/..." indicates http or https.
+  document.querySelectorAll('form:-webkit-any([method="get" i],:not([method])):-webkit-any([action^="http" i],[action^="/"])').forEach(spoilFormGet);
+}
 
 } //main
 
