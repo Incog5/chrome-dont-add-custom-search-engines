@@ -3,13 +3,21 @@
 function spoilFormGet(elem) {
     console.info({Found: elem});
 
+    // Check action - autodetection requires an HTTP* URL, but the scheme
+    // is not necessarily present in @action as CSS sees it.
+    const RE = /^http/i;
+    if( !RE.test(elem.getAttribute('action')) && !RE.test(elem.action) ) {
+        return;
+    }
+
     // Autodetection requires exactly one input of type text or search
     if(elem.querySelectorAll(':scope input:-webkit-any([type="text" i],[type="search" i])').length !== 1) return;
 
     // Autodetection also requires no password, file, or textarea elements
     if(elem.querySelector(':scope :-webkit-any(input[type="password" i],input[type="file" i],textarea)')) return;
 
-    // Add a <textarea> - unlike <input>, it doesn't block implicit submission
+    // Spoil the form so it won't be autodetected.  Do this by adding
+    // a <textarea> - unlike <input>, it doesn't block implicit submission
     // per https://www.tjvantoll.com/2013/01/01/enter-should-submit-forms-stop-messing-with-that/
     var newelem;
     newelem = document.createElement('textarea');
@@ -43,7 +51,7 @@ function main() {
     if(!/\/.+\//.test(location.pathname)) {
         // Note: for the sake of efficiency, assumes that we're on Web pages,
         // i.e., that action="/..." indicates http or https.
-        document.querySelectorAll('form:-webkit-any([method="get" i],:not([method])):-webkit-any([action^="http" i],[action^="/"])').forEach(spoilFormGet);
+        document.querySelectorAll('form:-webkit-any([method="get" i],:not([method]))').forEach(spoilFormGet);
     }
 
 } //main
