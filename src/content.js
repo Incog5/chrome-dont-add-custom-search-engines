@@ -48,11 +48,7 @@ function main() {
     );
 
     // Chrome autodetection, https://www.chromium.org/tab-to-search #2
-    if(!/\/.+\//.test(location.pathname)) {
-        // Note: for the sake of efficiency, assumes that we're on Web pages,
-        // i.e., that action="/..." indicates http or https.
-        document.querySelectorAll('form:-webkit-any([method="get" i],:not([method]))').forEach(spoilFormGet);
-    }
+    document.querySelectorAll('form:-webkit-any([method="get" i],:not([method]))').forEach(spoilFormGet);
 
 } //main
 
