@@ -10,8 +10,9 @@ function spoilFormGet(elem) {
         return;
     }
 
-    // Autodetection requires exactly one input of type text or search
-    if(elem.querySelectorAll(':scope input:-webkit-any([type="text" i],[type="search" i])').length !== 1) return;
+    // Autodetection requires exactly one input of type text or search.
+    // If the type is unspecified (not[type]), it defaults to `text`.
+    if(elem.querySelectorAll(':scope input:-webkit-any([type="text" i],[type="search" i],:not([type]))').length !== 1) return;
 
     // Autodetection also requires no password, file, or textarea elements
     if(elem.querySelector(':scope :-webkit-any(input[type="password" i],input[type="file" i],textarea)')) return;
